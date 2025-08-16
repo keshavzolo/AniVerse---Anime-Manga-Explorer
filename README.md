@@ -42,7 +42,7 @@
 ## 🚀 Tech Stack  
 - **Frontend**: HTML, CSS, JavaScript  
 - **API**: [Jikan REST API v4](https://docs.api.jikan.moe/)  
-- **Hosting**:
+- **Hosting**: [Netlify](https://aniversein.netlify.app/)
 
 ## 📂 Project Structure  
 AniVerse/
