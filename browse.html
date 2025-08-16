@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browse Anime - AniVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+   <video autoplay muted loop id="bg-video">
+    <source src="video.mp4" type="video/mp4" />
+  </video>
+
+  <header>
+      <div class="logo">
+      <a href="/"><img src="logo.png" alt="AniVerse Logo" /></a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html" class="btn">Browse</a>
+      <a href="genre.html">Genres</a>
+      <a href="upcoming.html">Upcoming</a>
+      <a href="manga.html" style="font-weight:700;">Manga</a>
+
+    </nav>
+  </header>
+
+  <main style="padding: 40px;">
+    <h2>Search Anime</h2>
+    <input type="text" id="searchBox" placeholder="Search for anime..." class="search-box" />
+    <div id="anime-list" class="anime-grid"></div>
+  </main>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

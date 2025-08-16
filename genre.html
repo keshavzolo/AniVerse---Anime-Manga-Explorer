@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browse Genres - AniVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <a href="/"><img src="logo.png" alt="AniVerse Logo" /></a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html" class="btn">Browse</a>
+      <a href="genre.html">Genres</a>
+      <a href="upcoming.html">Upcoming</a>
+      <a href="manga.html" style="font-weight:700;">Manga</a>
+    </nav>
+  </header>
+
+  <!-- Genre Title -->
+  <h1>Struggling to Choose? Discover Anime by Genre!</h1>
+
+  <!-- Genre Buttons -->
+  <section class="genre-list">
+    <ul>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(1)">Action</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(2)">Adventure</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(4)">Comedy</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(8)">Drama</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(10)">Fantasy</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(14)">Horror</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(7)">Mystery</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(22)">Romance</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(24)">Sci-Fi</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(36)">Slice of Life</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(30)">Sports</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(35)">Harem</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(41)">Suspense</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(39)">Detective</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(19)">Music</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(6)">Mythology</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(20)">Parody</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(40)">Psychological</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(62)">Reincarnation</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(29)">Space</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(79)">Survival</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(32)">Vampire</a></li>
+      <li><a href="#" onclick="event.preventDefault(); loadGenreAnime(15)">Kids</a></li>
+    </ul>
+  </section>
+
+  <!-- Anime Results Container -->
+  <section class="genre-results">
+    <h2 id="genre-title"></h2>
+    <div id="anime-genre-results" class="anime-grid"></div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Manga - AniVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="manag-bg.mp4.mp4" type="video/mp4" />
+  </video>
+
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="logo.png" alt="AniVerse Logo" /></a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html" class="btn">Browse</a>
+      <a href="genre.html">Genres</a>
+      <a href="upcoming.html">Upcoming</a>
+      <a href="top-manga.html" style="font-weight:700;">Manga</a>
+    </nav>
+  </header>
+
+  <main>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+  <h2 style="margin-bottom: 0;">Search Manga</h2>
+  <input type="text" id="searchBoxManga" placeholder="Search for manga..." class="search-box-Manga" />
+</div>
+<div id="manga-list" class="manga-grid">
+  <!-- Populated by script.js -->
+</div>
+
+  </main>
+
+</body>
+</html>

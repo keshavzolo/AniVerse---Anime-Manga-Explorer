@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime Details - AniVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+  <style>
+    body {
+      background: #0f0f17;
+    }
+    .detail-wrapper {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      background: #1e8cff;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .detail-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      background: rgba(24, 26, 27, 0.85);
+      border-radius: 12px;
+      padding: 25px;
+    }
+    .detail-poster {
+      flex: 0 0 300px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .detail-poster img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+    }
+    .detail-info {
+      flex: 1;
+      min-width: 300px;
+      color: #f0f0f5;
+    }
+    .detail-info h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+    .score {
+      font-weight: bold;
+      margin: 8px 0;
+    }
+    .genres {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 8px 0 16px;
+    }
+    .genre-badge {
+      background: #238636;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      display: inline-block;
+      color: white;
+    }
+    .trailer {
+      margin-top: 25px;
+    }
+    .trailer iframe {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .meta {
+      margin: 6px 0;
+      font-size: 0.9rem;
+    }
+    .synopsis {
+      margin-top: 15px;
+      line-height: 1.4;
+    }
+
+    /* === Characters Grid === */
+    .characters-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .character-card {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      text-align: center;
+      padding: 12px;
+      color: #fff;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .character-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .character-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .character-card h4 {
+      margin: 10px 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .character-card p {
+      font-size: 13px;
+      color: #bbb;
+      margin: 2px 0;
+    }
+    /* Voice Actor Section */
+    .voice-actor {
+      margin-top: 10px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+    }
+    .voice-actor img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 6px;
+    }
+    .voice-actor p {
+      font-size: 12px;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="logo.png" alt="AniVerse Logo" style="max-height:70px;"/></a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html">Browse</a>
+      <a href="genre.html">Genres</a>
+      <a href="upcoming.html">Upcoming</a>
+    </nav>
+  </header>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="video.mp4" type="video/mp4" />
+  </video>
+
+  <main class="detail-wrapper">
+    <a class="back-btn" href="index.html">← Back</a>
+    <div id="anime-detail" class="detail-container">
+      <!-- Populated by script.js -->
+    </div>
+
+    <h2 style="color:white; margin-top:30px; text-align:center;">Characters</h2>
+    <div id="anime-characters" class="characters-list">
+      <!-- Populated by script.js -->
+    </div>
+  </main>
+</body>
+</html>

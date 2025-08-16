@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AniVerse - Watch Anime Online</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+<body>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="video.mp4" type="video/mp4" />
+  </video>
+
+  <header>
+    <div class="logo">
+      <a href="/"><img src="logo.png" alt="AniVerse Logo" /></a>
+    </div>
+    <nav>
+       <a href="index.html">Home</a>
+      <a href="browse.html" class="btn">Browse</a>
+      <a href="genre.html">Genres</a>
+      <a href="upcoming.html">Upcoming</a>
+      <a href="manga.html" style="font-weight:700; font-family: cursive;">Manga</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero / Slider Section -->
+    <section class="anime-slider">
+  <div class="slider-wrapper">
+    <div class="slide">
+      <a href="anime-details.html?animeId=20">
+        <img src="https://static.posters.cz/image/hp/65746.jpg" alt="Naruto" />
+        <div class="caption">Naruto</div>
+      </a>
+    </div>
+    <div class="slide">
+      <a href="anime-details.html?animeId=16498">
+        <img src="AOT.jpg" alt="Attack on Titan" />
+        <div class="caption">Attack on Titan</div>
+      </a>
+    </div>
+    <div class="slide">
+      <a href="anime-details.html?animeId=38000">
+        <img src="demon-slayer.jpg" alt="Demon Slayer" />
+        <div class="caption">Demon Slayer</div>
+      </a>
+    </div>
+    <div class="slide">
+      <a href="anime-details.html?animeId=40748">
+        <img src="JJK.jpg" alt="Jujutsu Kaisen" />
+        <div class="caption">Jujutsu Kaisen</div>
+      </a>
+    </div>
+    <div class="slide">
+      <a href="anime-details.html?animeId=21">
+        <img src="one piece.jpg" alt="One Piece" />
+        <div class="caption">One Piece</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+    <!-- Top Anime by Year -->
+    <section class="top-yearly">
+      <h2>Top Anime by Year</h2>
+      
+      <div class="search-year-container">
+        <input
+          type="number"
+          id="search-year"
+          class="search-box"
+          placeholder="Enter year (e.g. 2023)"
+          min="1964"
+          max="2025"
+          value="2025"
+        />
+        <button id="year-search-btn">Search</button>
+      </div>
+
+      <div id="anime-yearly" class="year-scroll-grid"></div>
+    </section>
+  </main>
+
+</body>
+</html>

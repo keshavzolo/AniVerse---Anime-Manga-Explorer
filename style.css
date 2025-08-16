@@ -1,0 +1,449 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+   background-color: #000000;
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 40px;
+    padding-top: 0px;
+}
+
+.logo img {
+    max-height: 150px;
+    vertical-align: middle;
+    margin-right: 10px;
+    padding: 0px;
+    border-radius: 10px;
+
+}
+
+.logo{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+nav a:hover {
+  color: #58a6ff;
+}
+
+.hero{
+    display:flex;
+    align-items: center;
+    padding: 40px;
+    gap: 30px;
+}
+
+.banner-img {
+  width: 1010px;
+  height: 350px;
+  border-radius: 80px;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  margin-left: 0px;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+.hero-text .desc {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #c9d1d9;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #238636;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 2rem;
+}
+
+
+.top-yearly h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.year-scroll-grid{
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+button:hover {
+  background-color: #2ea043;
+}
+
+
+.anime-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.anime-card {
+  border-radius: 10px;
+  padding: 1px;
+  width: 200px;
+  color: white;
+  background-color: transparent;
+}
+
+.anime-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border-radius: 50px;
+  outline: black;
+  background-color: #161b22;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year-scroll-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  padding: 10px;
+  
+}
+
+.year-scroll-grid::-webkit-scrollbar {
+  height: 6px;
+  padding: 10px;
+}
+
+.year-scroll-grid::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.anime-card {
+  min-width: 200px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 5px;
+  padding-left: 5px;
+
+}
+
+.year-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-left: 8px;
+  
+}
+
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
+  opacity: 0.5; 
+}
+
+
+.search-year-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: white;
+  padding: 10px 20px;
+  
+}
+
+.search-year-container button {
+  background-color: #1ec940;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  
+}
+
+
+h1{
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #f7f7f7;
+    font-family:cursive;
+    padding: 20px;
+}
+
+
+h2{
+  text-align: left;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #f7f7f7;
+  font-family:cursive;
+  padding: 20px;
+  padding-left: 40px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 5px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  color: #f7f7f7;
+}
+
+ul a {
+  text-decoration: none;
+  color: #f7f7f7;
+  padding: 14px 0;
+  background-color: rgba(24, 26, 27, 0.3); /* transparent background */
+  border-radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s, border-color 0.3s;
+  gap: 10px;
+  font-family:monospace;
+  border: 2px solid #a259ff;
+  text-align: center;
+  box-sizing: border-box;
+  width:150px;
+  display: block;
+  box-shadow: #ffffff 0px 0px 12px;
+}
+
+ul a:hover {
+  background-color: #58a6ff;
+  color: #fff;
+  border-color: #58a6ff;
+}
+
+ul li {
+  margin: 5px;
+  padding: 5px;
+  font-size: 1.0rem;
+}
+
+.upcoming-scroll-grid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.top-yearly h2{
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  color: #f7f7f7;
+  font-family: cursive;
+  padding: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 10);
+}
+
+
+.genre-results h2 {
+  padding: 20px 20px 0;
+  font-size: 1.5rem;
+}
+
+#genre-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 20px;
+  color: #f7f7f7;
+  font-family: cursive;
+}
+
+#anime-genre-results{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.anime-slider {
+  position: relative;
+  width: 90%;
+  height: 400px;
+  overflow: hidden;
+  margin: 40px 0px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.slider-wrapper {
+  display: flex;
+  width: 500%;
+  height: 100%;
+  max-width: 1200px;
+  animation: slideAnime 20s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  display: block;
+  width: 1100px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 120px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+.caption {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  color: white;
+  font-size: 1.3rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  z-index: 2;
+  font-family: cursive;
+}
+
+@keyframes slideAnime {
+  0%   { transform: translateX(0%); }
+  16%  { transform: translateX(0%); }
+  20%  { transform: translateX(-100%); }
+  36%  { transform: translateX(-100%); }
+  40%  { transform: translateX(-200%); }
+  56%  { transform: translateX(-200%); }
+  60%  { transform: translateX(-300%); }
+  76%  { transform: translateX(-300%); }
+  80%  { transform: translateX(-400%); }
+  96%  { transform: translateX(-400%); }
+  100% { transform: translateX(0%); }
+}
+
+.anime-card a {
+  color: white;
+  text-decoration: none;
+}
+
+
+.anime-card p {
+  color: white;
+}
+
+.anime-card h3, 
+.anime-card h4 {
+  color: white;
+}
+
+#manga-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+ 
+  border-radius: 0%;
+  padding: 20px;
+}
+
+#anime-characters{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 0%;
+  padding: 20px;
+}
+
+.search-box-Manga {
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  background: rgba(24,26,27,0.3);
+  color: #fff;
+  border: 2px solid #a259ff;
+  width: 60%;
+  max-width: 500px;
+  box-sizing: border-box;
+  text-align: left;
+}
