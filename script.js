@@ -121,7 +121,7 @@ async function loadUpcomingAnime() {
   try {
     const response = await fetch("https://api.jikan.moe/v4/seasons/upcoming");
     const data = await response.json();
-    const animeList = (data.data || []).slice(0, 24); // limit
+    const animeList = (data.data || []).slice(0, 24);
 
     container.innerHTML = "";
     animeList.forEach((anime) => {
@@ -173,7 +173,6 @@ function getQueryParam(name) {
 }
 
 // ---------- Anime Details ----------
-
 async function fetchAnimeDetails(id) {
   const container = document.getElementById("anime-detail");
   if (!container) return;
@@ -200,6 +199,13 @@ async function fetchAnimeDetails(id) {
          </div>`
       : "";
 
+    // ✅ Prefer English title for streaming, fallback to default
+    const streamTitle = data.title_english || data.title;
+
+    const watchNowBtn = streamTitle
+      ? `<a class="watch-btn" href="watch.html?title=${encodeURIComponent(streamTitle)}">▶ Watch Now</a>`
+      : `<p style="color:yellow;">Streaming not available.</p>`;
+
     container.innerHTML = `
       <div class="detail-poster">
         <img src="${data.images.jpg.large_image_url}" alt="${data.title}" />
@@ -211,6 +217,7 @@ async function fetchAnimeDetails(id) {
         <p><strong>Studios:</strong> ${studios}</p>
         <p><strong>Producers:</strong> ${producers}</p>
         <p><strong>Synopsis:</strong> ${data.synopsis || "No synopsis available."}</p>
+        ${watchNowBtn}
         ${trailerEmbed}
       </div>
     `;
@@ -266,36 +273,30 @@ async function fetchAnimeCharacters(id) {
 
 // ---------- Initialization ----------
 document.addEventListener("DOMContentLoaded", () => {     
-  // Search setup
   setupSearch();
   setupYearSearch();
 
-  // Load top anime list on landing
   if (document.getElementById("anime-list")) {
     loadAnimeList();
   }
 
-  // Load year default
   if (document.getElementById("anime-yearly")) {
     loadTopAnimeByYear(2025);
   }
 
-  // Upcoming page
   if (window.location.pathname.includes("upcoming") || document.getElementById("anime-upcoming")) {
     loadUpcomingAnime();
   }
 
-  // Genre page
   if (window.location.pathname.includes("genre") && document.getElementById("anime-genre-results")) {
     // optionally: loadGenreAnime(1);
   }
 
-  // Detail page
   if (window.location.pathname.includes("anime-details.html")) {
     const animeId = getQueryParam("animeId");
     if (animeId) {
       fetchAnimeDetails(animeId);
-      fetchAnimeCharacters(animeId); // Fetch characters
+      fetchAnimeCharacters(animeId);
     } else {
       const container = document.getElementById("anime-detail");
       if (container) container.innerHTML = "<p>Anime ID missing in URL.</p>";
@@ -303,133 +304,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ---------- Utility for Manga ----------
-function createMangaCardHTML(manga) {
-  const title = manga.title || "Unknown";
-  const imageUrl = manga.images?.jpg?.image_url || "";
-  const score = manga.score || "N/A";
-  const volumes = manga.volumes || "N/A";
-  const malId = manga.mal_id;
-
-  return `
-    <div class="anime-card">
-      <a class="card-link" href="manga.html?mangaId=${encodeURIComponent(malId)}">
-        <img src="${imageUrl}" alt="${title}" />
-        <h3>${title}</h3>
-        <p>Volumes: ${volumes}</p>
-        <p>Score: ${score}</p>
-      </a>
-    </div>
-  `;
-}
-
-// ---------- Manga Details ----------
-async function fetchMangaDetails(id) {
-  const container = document.getElementById("manga-detail");
-  if (!container) return;
-  container.innerHTML = "<p>Loading manga details...</p>";
+// ---------- IMDb ID Resolver using OMDb ----------
+// ---------- IMDb ID Resolver using OMDb ----------
+async function getIMDbData(title, year = "") {
+  const apiKey = "b5d0b2b1"; // Your OMDb API key
+  const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${apiKey}`;
 
   try {
-    const res = await fetch(`https://api.jikan.moe/v4/manga/${id}`);
-    const data = (await res.json()).data;
-
-    container.innerHTML = `
-      <div class="detail-poster">
-        <img src="${data.images.jpg.large_image_url}" alt="${data.title}" />
-      </div>
-      <div class="detail-info">
-        <h1>${data.title}</h1>
-        <p><strong>Type:</strong> ${data.type || "N/A"}</p>
-        <p><strong>Chapters:</strong> ${data.chapters || "N/A"}</p>
-        <p><strong>Volumes:</strong> ${data.volumes || "N/A"}</p>
-        <p><strong>Score:</strong> ${data.score || "N/A"}</p>
-        <p><strong>Status:</strong> ${data.status || "N/A"}</p>
-        <p><strong>Published:</strong> ${data.published?.string || "N/A"}</p>
-        <p><strong>Synopsis:</strong> ${data.synopsis || "No synopsis available."}</p>
-      </div>
-    `;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data && data.imdbID) {
+      console.log(`IMDb ID for ${title}: ${data.imdbID}, Type: ${data.Type}`);
+      return { imdbId: data.imdbID, type: data.Type }; // Type = "movie" | "series" | "anime"
+    }
   } catch (err) {
-    console.error("Error loading manga details:", err);
-    container.innerHTML = "<p>Failed to load manga details.</p>";
+    console.error("Error fetching IMDb data:", err);
   }
+  return null;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById("manga-list")) {
-    loadTopManga();
-  }
+// ---------- Watch Page ----------
+async function loadWatchPage() {
+  const params = new URLSearchParams(window.location.search);
+  const title = params.get("title");
+  const year = params.get("year") || ""; // Optional year
 
-  if (window.location.pathname.includes("manga-details.html")) {
-    const mangaId = new URLSearchParams(window.location.search).get("mangaId");
-    if (mangaId) {
-      fetchMangaDetails(mangaId);
+  const player = document.getElementById("anime-player");
+  const watchTitle = document.getElementById("watch-title");
+
+  if (title && player && watchTitle) {
+    watchTitle.textContent = `Now Watching: ${title}`;
+
+    // Fetch IMDb data
+    const imdbData = await getIMDbData(title, year);
+
+    if (imdbData) {
+      const { imdbId, type } = imdbData;
+
+      // 🔥 Detect type (movie vs series)
+      if (type === "series") {
+        player.src = `https://vidsrc.xyz/embed/tv/${imdbId}`;
+      } else {
+        player.src = `https://vidsrc.xyz/embed/movie/${imdbId}`;
+      }
+    } else {
+      console.error("The Title is not available at this moment"); 
     }
   }
-});
-
-// ---------- Manga Search & Top Manga ----------
-async function loadMangaList(query = "") {
-  const endpoint = query
-    ? `https://api.jikan.moe/v4/manga?q=${encodeURIComponent(query)}&limit=25`
-    : `https://api.jikan.moe/v4/top/manga?limit=24`;
-
-  try {
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    const mangaList = data.data || [];
-
-    const container = document.getElementById("manga-list");
-    if (!container) return;
-    container.innerHTML = "";
-
-    if (mangaList.length === 0) {
-      container.innerHTML = `<p style="color:white;">No manga found.</p>`;
-      return;
-    }
-
-    mangaList.forEach((manga) => {
-      const title = manga.title || "Unknown";
-      const imageUrl = manga.images?.jpg?.image_url || "";
-      const type = manga.type || "N/A";
-      const chapters = manga.chapters || "TBA";
-      const score = manga.score || "N/A";
-      const malId = manga.mal_id;
-
-      container.insertAdjacentHTML("beforeend", `
-        <div class="anime-card">
-          <a class="card-link" href="manga-details.html?mangaId=${encodeURIComponent(malId)}">
-            <img src="${imageUrl}" alt="${title}" />
-            <h3>${title}</h3>
-            <p>${type} | Chapters: ${chapters}</p>
-            <p>Rating: ${score}</p>
-          </a>
-        </div>
-      `);
-    });
-  } catch (error) {
-    console.error("Failed to fetch manga:", error);
-  }
 }
 
-// ---------- Manga Search Box Setup ----------
-function setupMangaSearch() {
-  const searchBox = document.getElementById("searchBoxManga");
-  if (!searchBox) return;
-
-  let searchTimeout = null;
-  searchBox.addEventListener("input", function () {
-    clearTimeout(searchTimeout);
-    const query = this.value.trim();
-    searchTimeout = setTimeout(() => {
-      loadMangaList(query);
-    }, 300);
-  });
-}
-
-// ---------- Init Top Manga Page ----------
+// ---------- Init ----------
 document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById("manga-list")) {
-    loadMangaList(); // Load top manga by default
-    setupMangaSearch();
+  if (window.location.pathname.includes("watch.html")) {
+    loadWatchPage();
   }
 });
