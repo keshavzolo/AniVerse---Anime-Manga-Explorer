@@ -103,7 +103,6 @@ button:hover {
   background-color: #2ea043;
 }
 
-
 .anime-grid {
   display: flex;
   flex-wrap: wrap;
@@ -326,59 +325,49 @@ ul li {
 
 .anime-slider {
   position: relative;
-  width: 90%;
-  height: 400px;
+  width: 100%;
+  max-width: 1200px;
+  height: 45vw; /* scales with screen width */
+  max-height: 400px;
   overflow: hidden;
-  margin: 40px 0px;
-  display: flex;
-  align-items: center;
-  
+  margin: 40px auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
 
 .slider-wrapper {
   display: flex;
-  width: 500%;
+  width: 500%; /* 5 slides */
   height: 100%;
-  max-width: 1200px;
   animation: slideAnime 20s infinite;
   animation-timing-function: ease-in-out;
 }
 
 .slide {
   position: relative;
-  width: 100%;
+  flex: 0 0 100%; /* each slide takes full width */
   height: 100%;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
 }
 
 .slide img {
-  display: block;
-  width: 1100px;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 120px;
-  display: block;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  border-radius: 20px;
 }
 
 .caption {
   position: absolute;
-  bottom: 30px;
-  left: 40px;
+  bottom: 20px;
+  left: 20px;
   color: white;
-  font-size: 1.3rem;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-  border-radius: 10px;
-  z-index: 2;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
   font-family: cursive;
 }
 
+/* Autoplay keyframes (5 slides example) */
 @keyframes slideAnime {
   0%   { transform: translateX(0%); }
   16%  { transform: translateX(0%); }
@@ -392,6 +381,17 @@ ul li {
   96%  { transform: translateX(-400%); }
   100% { transform: translateX(0%); }
 }
+
+/* ✅ Responsive font sizing */
+@media (max-width: 768px) {
+  .caption {
+    font-size: 1rem;
+    bottom: 10px;
+    left: 10px;
+    padding: 6px 12px;
+  }
+}
+
 
 .anime-card a {
   color: white;
