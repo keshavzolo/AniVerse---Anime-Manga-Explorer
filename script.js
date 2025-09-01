@@ -271,6 +271,124 @@ async function fetchAnimeCharacters(id) {
   }
 }
 
+// =============== MANGA FUNCTIONS ===============
+
+// Create Manga Card
+function createMangaCardHTML(manga) {
+  const title = manga.title || "Unknown";
+  const imageUrl = manga.images?.jpg?.image_url || "";
+  const score = manga.score || "N/A";
+  const volumes = manga.volumes || "N/A";
+  const malId = manga.mal_id;
+
+  return `
+    <div class="anime-card">
+      <a class="card-link" href="manga-details.html?mangaId=${encodeURIComponent(malId)}">
+        <img src="${imageUrl}" alt="${title}" />
+        <h3>${title}</h3>
+        <p>Volumes: ${volumes}</p>
+        <p>Score: ${score}</p>
+      </a>
+    </div>
+  `;
+}
+
+// Fetch Manga List (Top Manga or Search)
+async function loadMangaList(query = "") {
+  const endpoint = query
+    ? `https://api.jikan.moe/v4/manga?q=${encodeURIComponent(query)}&limit=25`
+    : `https://api.jikan.moe/v4/top/manga?limit=24`;
+
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    const mangaList = data.data || [];
+
+    const container = document.getElementById("manga-list");
+    if (!container) return;
+    container.innerHTML = "";
+
+    if (mangaList.length === 0) {
+      container.innerHTML = `<p style="color:white;">No manga found.</p>`;
+      return;
+    }
+
+    mangaList.forEach((manga) => {
+      container.insertAdjacentHTML("beforeend", createMangaCardHTML(manga));
+    });
+  } catch (error) {
+    console.error("Failed to fetch manga:", error);
+  }
+}
+
+// Manga Search Setup
+function setupMangaSearch() {
+  const searchBox = document.getElementById("searchBoxManga");
+  if (!searchBox) return;
+
+  let searchTimeout = null;
+  searchBox.addEventListener("input", function () {
+    clearTimeout(searchTimeout);
+    const query = this.value.trim();
+    searchTimeout = setTimeout(() => {
+      loadMangaList(query);
+    }, 300);
+  });
+}
+
+// Manga Details
+async function fetchMangaDetails(id) {
+  const container = document.getElementById("manga-detail");
+  if (!container) return;
+  container.innerHTML = "<p>Loading manga details...</p>";
+
+  try {
+    const res = await fetch(`https://api.jikan.moe/v4/manga/${id}`);
+    const data = (await res.json()).data;
+
+    // ✅ Add external links (buy / official)
+    const externalLinks = data.external?.length
+      ? data.external.map((link) => `<a href="${link.url}" target="_blank">${link.name}</a>`).join(" | ")
+      : "No external links available.";
+
+    container.innerHTML = `
+      <div class="detail-poster">
+        <img src="${data.images.jpg.large_image_url}" alt="${data.title}" />
+      </div>
+      <div class="detail-info">
+        <h1>${data.title}</h1>
+        <p><strong>Type:</strong> ${data.type || "N/A"}</p>
+        <p><strong>Chapters:</strong> ${data.chapters || "N/A"}</p>
+        <p><strong>Volumes:</strong> ${data.volumes || "N/A"}</p>
+        <p><strong>Score:</strong> ${data.score || "N/A"}</p>
+        <p><strong>Status:</strong> ${data.status || "N/A"}</p>
+        <p><strong>Published:</strong> ${data.published?.string || "N/A"}</p>
+        <p><strong>Synopsis:</strong> ${data.synopsis || "No synopsis available."}</p>
+        <p><strong>Buy / More Info:</strong> ${externalLinks}</p>
+      </div>
+    `;
+  } catch (err) {
+    console.error("Error loading manga details:", err);
+    container.innerHTML = "<p>Failed to load manga details.</p>";
+  }
+}
+
+// Init for Manga Pages
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("manga-list")) {
+    loadMangaList(); // Load top manga by default
+    setupMangaSearch();
+  }
+
+  if (window.location.pathname.includes("manga-details.html")) {
+    const mangaId = new URLSearchParams(window.location.search).get("mangaId");
+    if (mangaId) {
+      fetchMangaDetails(mangaId);
+    }
+  }
+});
+
+
 // ---------- Initialization ----------
 document.addEventListener("DOMContentLoaded", () => {     
   setupSearch();
@@ -304,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ---------- IMDb ID Resolver using OMDb ----------
+
 // ---------- IMDb ID Resolver using OMDb ----------
 async function getIMDbData(title, year = "") {
   const apiKey = "b5d0b2b1"; // Your OMDb API key
